@@ -1,19 +1,19 @@
-function setup() {
+const setup = () => {
 
   // Setup PixiJS application
-  let app = new PIXI.Application(600, 600, {
+  const app = new PIXI.Application(600, 600, {
     backgroundColor: 0xefefef,
   });
   document.body.appendChild(app.view);
 
   // Create and centre sprite
-  let frames = [];
+  const frames = [];
   for (let i = 0; i < 4; i += 1) {
-    let texture = new PIXI.Texture(PIXI.Texture.from("foo.png"));
+    const texture = new PIXI.Texture(PIXI.Texture.from("pictures/foo.png"));
     texture.frame = new PIXI.Rectangle((i * 64), 0, 64, 64);
     frames.push(texture);
   }
-  let foo = new PIXI.extras.AnimatedSprite(frames);
+  const foo = new PIXI.extras.AnimatedSprite(frames);
   foo.x = (app.screen.width / 2) - (foo.width / 2);
   foo.y = (app.screen.height / 2) - (foo.height / 2);
   app.stage.addChild(foo);
@@ -57,12 +57,12 @@ function setup() {
 
 var keys = {};
 
-window.onkeyup = function (key_event) {
+window.onkeyup = key_event => {
   keys[key_event.keyCode] = false;
 };
-window.onkeydown = function (key_event) {
+window.onkeydown = key_event => {
   keys[key_event.keyCode] = true;
 };
-window.onload = function () {
-  PIXI.loaders.shared.add(["foo.png"]).load(setup);
+window.onload = () => {
+  PIXI.loaders.shared.add(["pictures/foo.png"]).load(setup);
 };
