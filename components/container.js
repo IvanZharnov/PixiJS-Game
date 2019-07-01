@@ -1,4 +1,4 @@
-export default createFrame = () => {
+export const createFrame = () => {
   const app = new PIXI.Application(600, 600, {
     backgroundColor: 0xefefef,
   });
