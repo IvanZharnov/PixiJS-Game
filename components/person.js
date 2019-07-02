@@ -20,20 +20,34 @@ export const createPerson = app => {
       if (keys[38]) { yv -= speed; }
       if (keys[39]) { xv += speed; }
       if (keys[40]) { yv += speed; }
-  
+
       foo.x += xv;
       foo.y += yv;
-      if (foo.x < -foo.width) {
-        foo.x += app.screen.width + foo.width;
-      } else if (foo.x > app.screen.width) {
-        foo.x = -foo.width;
+
+      const contain = (sprite, container) => {
+        let collision = undefined;
+        
+        if (sprite.x < container.x) {
+          sprite.x = container.x;
+          collision = "left";
+        }
+        if (sprite.y < container.y) {
+          sprite.y = container.y;
+          collision = "top";
+        }
+        if (sprite.x + sprite.width > container.width) {
+          sprite.x = container.width - sprite.width;
+          collision = "right";
+        }
+        if (sprite.y + sprite.height > container.height) {
+          sprite.y = container.height - sprite.height;
+          collision = "bottom";
+        }
+        return collision;
       }
-      if (foo.y < -foo.height) {
-        foo.y += app.screen.height + foo.height;
-      } else if (foo.y > app.screen.height) {
-        foo.y = -foo.height;
-      }
-  
+
+      contain(foo, { x: 0, y: 0, width: 600, height: 600 });
+
       if (xv > 0) {
         foo.gotoAndStop(1);
       } else if (xv < 0) {
