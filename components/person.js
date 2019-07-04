@@ -41,14 +41,16 @@ export const createPerson = app => {
       angle = Math.atan2(dx, dy)
       xVelocity = Math.sin(angle) * speed;
       yVelocity = Math.cos(angle) * speed;
-      foo.x += xVelocity
-      foo.y += yVelocity
+      if (Math.abs(dx - dy) > 5) {
+        foo.x += xVelocity
+        foo.y += yVelocity
+      }
 
       // Walls
 
       const contain = (s, c) => { // (sptire, container)
         let collision = undefined;
-        
+
         if (s.x < c.x + s.width / 2) {
           s.x = c.x + s.width / 2;
           collision = "left";
@@ -71,10 +73,9 @@ export const createPerson = app => {
       contain(foo, { x: 0, y: 0, width: 600, height: 600 });
 
       // Specific frame
-
-      if (dx > 0) {
+      if (dx - Math.abs(dy) > 0) {
         foo.gotoAndStop(1);
-      } else if (dx < 0) {
+      } else if ((-1 * dx) - Math.abs(dy) > 0) {
         foo.gotoAndStop(2);
       } else if (dy < 0) {
         foo.gotoAndStop(3);
