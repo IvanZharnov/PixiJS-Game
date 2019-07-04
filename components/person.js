@@ -1,6 +1,9 @@
 export const createPerson = app => {
 
   const setup = () => {
+
+    // Create person frames
+
     let frames = [];
     for (let i = 0; i < 4; i += 1) {
       let texture = new PIXI.Texture(PIXI.Texture.from("../pictures/foo.png"));
@@ -8,39 +11,58 @@ export const createPerson = app => {
       frames.push(texture);
     }
     let foo = new PIXI.extras.AnimatedSprite(frames);
+
+    // Set person to center
+
     foo.x = (app.screen.width / 2) - (foo.width / 2);
     foo.y = (app.screen.height / 2) - (foo.height / 2);
+    foo.anchor.set(0.5);
     app.stage.addChild(foo);
-  
-    app.ticker.add((delta) => {
-      let xv = 0;
-      let yv = 0;
-      let speed = 3;
-      if (keys[37]) { xv -= speed; }
-      if (keys[38]) { yv -= speed; }
-      if (keys[39]) { xv += speed; }
-      if (keys[40]) { yv += speed; }
 
-      foo.x += xv;
-      foo.y += yv;
+    const getMousePosition = () => {
+      return app.renderer.plugins.interaction.mouse.global;
+    }
 
-      const contain = (sprite, container) => {
+    // Animation settigs
+
+    let xVelocity = 0.1;
+    let yVelocity = 0.1;
+    let mousePosition = getMousePosition();
+    let speed = 3;
+    let angle = 45;
+
+    app.ticker.add(() => {
+
+      // Follow the mouse
+
+      mousePosition = getMousePosition();
+      let dx = mousePosition.x - foo.x;
+      let dy = mousePosition.y - foo.y;
+      angle = Math.atan2(dx, dy)
+      xVelocity = Math.sin(angle) * speed;
+      yVelocity = Math.cos(angle) * speed;
+      foo.x += xVelocity
+      foo.y += yVelocity
+
+      // Walls
+
+      const contain = (s, c) => { // (sptire, container)
         let collision = undefined;
         
-        if (sprite.x < container.x) {
-          sprite.x = container.x;
+        if (s.x < c.x + s.width / 2) {
+          s.x = c.x + s.width / 2;
           collision = "left";
         }
-        if (sprite.y < container.y) {
-          sprite.y = container.y;
+        if (s.y < c.y + s.height / 2) {
+          s.y = c.y + s.height / 2;
           collision = "top";
         }
-        if (sprite.x + sprite.width > container.width) {
-          sprite.x = container.width - sprite.width;
+        if (s.x + s.width / 2 > c.width) {
+          s.x = c.width - s.width / 2;
           collision = "right";
         }
-        if (sprite.y + sprite.height > container.height) {
-          sprite.y = container.height - sprite.height;
+        if (s.y + s.height / 2 > c.height) {
+          s.y = c.height - s.width / 2;
           collision = "bottom";
         }
         return collision;
@@ -48,26 +70,20 @@ export const createPerson = app => {
 
       contain(foo, { x: 0, y: 0, width: 600, height: 600 });
 
-      if (xv > 0) {
+      // Specific frame
+
+      if (dx > 0) {
         foo.gotoAndStop(1);
-      } else if (xv < 0) {
+      } else if (dx < 0) {
         foo.gotoAndStop(2);
-      } else if (yv < 0) {
+      } else if (dy < 0) {
         foo.gotoAndStop(3);
-      } else {
+      } else if (dy > 0){
         foo.gotoAndStop(0);
       }
     });
   }
 
-  var keys = {};
-  
-  window.onkeyup = key_event => {
-    keys[key_event.keyCode] = false;
-  };
-  window.onkeydown = key_event => {
-    keys[key_event.keyCode] = true;
-  };
   window.onload = () => {
     PIXI.loaders.shared.add(["../pictures/foo.png"]).load(setup);
   };
