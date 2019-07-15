@@ -28,7 +28,7 @@ export const createPerson = app => {
     let xVelocity = 0.1;
     let yVelocity = 0.1;
     let mousePosition = getMousePosition();
-    let speed = 3;
+    let speed = 5;
     let angle = 45;
 
     app.ticker.add(() => {

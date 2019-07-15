@@ -12,8 +12,8 @@ const onMove = (shuriken, position, x = 0.3, y = 0.3) => {
   }
 }
 
-const startPointsX = [20, 20, 580, 580];
-const startPointsY = [20, 580, 580, 20];
+const startPointsX = [-20, -20, 620, 620];
+const startPointsY = [-20, 620, 620, -20];
 
 export const createShuriken = app => {
 
@@ -29,8 +29,7 @@ export const createShuriken = app => {
     const randY = Math.random();
     setInterval(() => onMove(shuriken, i, randX, randY), 5);
     app.ticker.add((delta) => {
-      shuriken.rotation += 0.03 * delta;
+      shuriken.rotation += 0.1 * delta;
     });
   }
-
 }
