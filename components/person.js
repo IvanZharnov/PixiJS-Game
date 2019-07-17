@@ -5,11 +5,7 @@ export const createPerson = app => {
     // Create person frames
 
     let frames = [];
-    for (let i = 0; i < 4; i += 1) {
-      let texture = new PIXI.Texture(PIXI.Texture.from("../pictures/foo.png"));
-      texture.frame = new PIXI.Rectangle((i * 64), 0, 64, 64);
-      frames.push(texture);
-    }
+    frames.push(new PIXI.Texture(PIXI.Texture.from("../pictures/rick.svg")));
     let foo = new PIXI.extras.AnimatedSprite(frames);
 
     // Set person to center
@@ -70,22 +66,23 @@ export const createPerson = app => {
         return collision;
       }
 
-      contain(foo, { x: 0, y: 0, width: 600, height: 600 });
+      contain(foo, { x: 0, y: 0, width: 700, height: 700 });
 
       // Specific frame
-      if (dx - Math.abs(dy) > 0) {
-        foo.gotoAndStop(1);
-      } else if ((-1 * dx) - Math.abs(dy) > 0) {
-        foo.gotoAndStop(2);
-      } else if (dy < 0) {
-        foo.gotoAndStop(3);
-      } else if (dy > 0){
-        foo.gotoAndStop(0);
-      }
+
+      // if (dx - Math.abs(dy) > 0) {
+      //   foo.gotoAndStop(1);
+      // } else if ((-1 * dx) - Math.abs(dy) > 0) {
+      //   foo.gotoAndStop(2);
+      // } else if (dy < 0) {
+      //   foo.gotoAndStop(3);
+      // } else if (dy > 0){
+      //   foo.gotoAndStop(0);
+      // }
     });
   }
 
   window.onload = () => {
-    PIXI.loaders.shared.add(["../pictures/foo.png"]).load(setup);
+    PIXI.loaders.shared.add(["../pictures/rick.svg"]).load(setup);
   };
 }

@@ -12,8 +12,8 @@ const onMove = (shuriken, position, x = 0.3, y = 0.3) => {
   }
 }
 
-const startPointsX = [-20, -20, 620, 620];
-const startPointsY = [-20, 620, 620, -20];
+const startPointsX = [-20, -20, 720, 720];
+const startPointsY = [-20, 720, 720, -20];
 
 export const createShuriken = app => {
 
