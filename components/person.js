@@ -2,17 +2,19 @@ export const createPerson = app => {
 
   const setup = () => {
 
-    // Create person frames
+    // Create person
 
-    let frames = [];
-    frames.push(new PIXI.Texture(PIXI.Texture.from("../pictures/rick.svg")));
-    let foo = new PIXI.extras.AnimatedSprite(frames);
+    let foo = new PIXI.extras.AnimatedSprite([
+      PIXI.Sprite.from("../pictures/rick.svg")
+    ]);
 
     // Set person to center
 
-    foo.x = (app.screen.width / 2) - (foo.width / 2);
-    foo.y = (app.screen.height / 2) - (foo.height / 2);
     foo.anchor.set(0.5);
+    foo.width = 80;
+    foo.height = 80;
+    foo.x = app.screen.width / 2;
+    foo.y = app.screen.height / 2;
     app.stage.addChild(foo);
 
     const getMousePosition = () => {
@@ -33,7 +35,7 @@ export const createPerson = app => {
 
       mousePosition = getMousePosition();
       let dx = mousePosition.x - foo.x;
-      let dy = mousePosition.y - foo.y;
+      let dy = mousePosition.y - foo.y - 20;
       angle = Math.atan2(dx, dy)
       xVelocity = Math.sin(angle) * speed;
       yVelocity = Math.cos(angle) * speed;
@@ -67,18 +69,6 @@ export const createPerson = app => {
       }
 
       contain(foo, { x: 0, y: 0, width: 700, height: 700 });
-
-      // Specific frame
-
-      // if (dx - Math.abs(dy) > 0) {
-      //   foo.gotoAndStop(1);
-      // } else if ((-1 * dx) - Math.abs(dy) > 0) {
-      //   foo.gotoAndStop(2);
-      // } else if (dy < 0) {
-      //   foo.gotoAndStop(3);
-      // } else if (dy > 0){
-      //   foo.gotoAndStop(0);
-      // }
     });
   }
 

@@ -6,6 +6,7 @@
 body {
   margin-left: calc(50% - 350px);
   margin-top: 70px;
+  cursor: url('../pictures/flask.ico') 16 0, auto;	
 }
 
 canvas {
