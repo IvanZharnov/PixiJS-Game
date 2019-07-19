@@ -31,5 +31,30 @@ export const createShuriken = app => {
     app.ticker.add((delta) => {
       shuriken.rotation += 0.1 * delta;
     });
+    return shuriken
   }
 }
+
+// export const createShuriken = app => {
+
+//   let shurikens = []
+
+//   for (let i = 0; i < 4; i += 1) {
+//     const shuriken = PIXI.Sprite.from("../pictures/shuriken.png");
+//     shuriken.anchor.set(0.5);
+//     shuriken.width = 50;
+//     shuriken.height = 50;
+//     shuriken.x = startPointsX[i];
+//     shuriken.y = startPointsY[i];
+//     app.stage.addChild(shuriken);
+//     const randX = Math.random();
+//     const randY = Math.random();
+//     setInterval(() => onMove(shuriken, i, randX, randY), 5);
+//     app.ticker.add((delta) => {
+//       shuriken.rotation += 0.1 * delta;
+//     });
+//     shurikens.push(shuriken)
+//   }
+//   return shurikens
+// }
+ 

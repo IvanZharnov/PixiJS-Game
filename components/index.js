@@ -15,6 +15,7 @@ setInterval(() => {
 }, 20001)
 
 const app = createFrame();
-createPerson(app);
+const s = createShuriken(app)
+createPerson(app, s);
 createStopwatch();
-setTimeout(() => throwShuriken(), 3000)
+setTimeout(() => throwShuriken(), 6000)

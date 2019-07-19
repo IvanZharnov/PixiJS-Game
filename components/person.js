@@ -1,4 +1,4 @@
-export const createPerson = app => {
+export const createPerson = (app, s) => {
 
   const setup = () => {
 
@@ -19,6 +19,10 @@ export const createPerson = app => {
 
     const getMousePosition = () => {
       return app.renderer.plugins.interaction.mouse.global;
+    }
+
+    const mr = num => {
+      return Math.round(num)
     }
 
     // Animation settigs
@@ -66,6 +70,21 @@ export const createPerson = app => {
           collision = "bottom";
         }
         return collision;
+      }
+
+      let spX = mr(s.x) + 30;
+      let smX = mr(s.x) - 30;
+      let spY = mr(s.y) + 30;
+      let smY = mr(s.y) - 30;
+
+      let ppX = mr(foo.x) + 35;
+      let pmX = mr(foo.x) - 35;
+      let ppY = mr(foo.y) + 35;
+      let pmY = mr(foo.y) - 35;
+
+      if (((pmX < spX && spX < ppX) || (pmX < smX && smX < ppX)) &&
+          ((pmY < smY && smY < ppY) || (pmY < spY && spY < ppY))) {
+        console.log('lose')
       }
 
       contain(foo, { x: 0, y: 0, width: 700, height: 700 });
